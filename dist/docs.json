@@ -1,0 +1,273 @@
+{
+  "api": {
+    "name": "CameraPreviewPlugin",
+    "slug": "camerapreviewplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "start",
+        "signature": "(options: CameraPreviewOptions) => any",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "CameraPreviewOptions"
+          }
+        ],
+        "returns": "any",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "CameraPreviewOptions"
+        ],
+        "slug": "start"
+      },
+      {
+        "name": "stop",
+        "signature": "() => any",
+        "parameters": [],
+        "returns": "any",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "stop"
+      },
+      {
+        "name": "capture",
+        "signature": "(options: CameraPreviewPictureOptions) => any",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "CameraPreviewPictureOptions"
+          }
+        ],
+        "returns": "any",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "CameraPreviewPictureOptions"
+        ],
+        "slug": "capture"
+      },
+      {
+        "name": "captureSample",
+        "signature": "(options: CameraSampleOptions) => any",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "CameraSampleOptions"
+          }
+        ],
+        "returns": "any",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "CameraSampleOptions"
+        ],
+        "slug": "capturesample"
+      },
+      {
+        "name": "getSupportedFlashModes",
+        "signature": "() => any",
+        "parameters": [],
+        "returns": "any",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "CameraPreviewFlashMode"
+        ],
+        "slug": "getsupportedflashmodes"
+      },
+      {
+        "name": "setFlashMode",
+        "signature": "(options: { flashMode: CameraPreviewFlashMode | string; }) => void",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ flashMode: string; }"
+          }
+        ],
+        "returns": "void",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "CameraPreviewFlashMode"
+        ],
+        "slug": "setflashmode"
+      },
+      {
+        "name": "flip",
+        "signature": "() => void",
+        "parameters": [],
+        "returns": "void",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "flip"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "CameraPreviewOptions",
+      "slug": "camerapreviewoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "parent",
+          "tags": [],
+          "docs": "Parent element to attach the video preview element to (applicable to the web platform only)",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "className",
+          "tags": [],
+          "docs": "Class name to add to the video preview element (applicable to the web platform only)",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "width",
+          "tags": [],
+          "docs": "The preview width in pixels, default window.screen.width (applicable to the android and ios platforms only)",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "height",
+          "tags": [],
+          "docs": "The preview height in pixels, default window.screen.height (applicable to the android and ios platforms only)",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "x",
+          "tags": [],
+          "docs": "The x origin, default 0 (applicable to the android and ios platforms only)",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "y",
+          "tags": [],
+          "docs": "The y origin, default 0 (applicable to the android and ios platforms only)",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "toBack",
+          "tags": [],
+          "docs": "Brings your html in front of your preview, default false (applicable to the android only)",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "paddingBottom",
+          "tags": [],
+          "docs": "The preview bottom padding in pixes. Useful to keep the appropriate preview sizes when orientation changes (applicable to the android and ios platforms only)",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "rotateWhenOrientationChanged",
+          "tags": [],
+          "docs": "Rotate preview when orientation changes (applicable to the ios platforms only; default value is true)",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "position",
+          "tags": [],
+          "docs": "Choose the camera to use 'front' or 'rear', default 'front'",
+          "complexTypes": [
+            "CameraPosition"
+          ],
+          "type": "string"
+        },
+        {
+          "name": "storeToFile",
+          "tags": [],
+          "docs": "Defaults to false - Capture images to a file and return back the file path instead of returning base64 encoded data",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "disableExifHeaderStripping",
+          "tags": [],
+          "docs": "Defaults to false - Android Only - Disable automatic rotation of the image, and let the browser deal with it (keep reading on how to achieve it)",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "enableHighResolution",
+          "tags": [],
+          "docs": "Defaults to false - iOS only - Activate high resolution image capture so that output images are from the highest resolution possible on the device *",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "disableAudio",
+          "tags": [],
+          "docs": "Defaults to false - Web only - Disables audio stream to prevent permission requests and output switching",
+          "complexTypes": [],
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "name": "CameraPreviewPictureOptions",
+      "slug": "camerapreviewpictureoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "height",
+          "tags": [],
+          "docs": "The picture height, optional, default 0 (Device default)",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "width",
+          "tags": [],
+          "docs": "The picture width, optional, default 0 (Device default)",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "quality",
+          "tags": [],
+          "docs": "The picture quality, 0 - 100, default 85",
+          "complexTypes": [],
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "CameraSampleOptions",
+      "slug": "camerasampleoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "quality",
+          "tags": [],
+          "docs": "The picture quality, 0 - 100, default 85",
+          "complexTypes": [],
+          "type": "number"
+        }
+      ]
+    }
+  ],
+  "enums": []
+}

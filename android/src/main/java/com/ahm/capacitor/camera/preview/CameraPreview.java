@@ -1,6 +1,7 @@
 package com.ahm.capacitor.camera.preview;
 
 import android.Manifest;
+import android.content.Intent;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
@@ -18,19 +19,22 @@ import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
+import com.getcapacitor.PermissionState;
+
 
 import org.json.JSONArray;
 
 import java.io.File;
 import java.util.List;
 
-@NativePlugin(
-        permissions = {
-                Manifest.permission.CAMERA
-        },
-        requestCodes = {
-                CameraPreview.REQUEST_CAMERA_PERMISSION
-        }
+@CapacitorPlugin(
+  name = "CameraPreview",
+  permissions = {
+    @Permission(
+        strings = { Manifest.permission.CAMERA },
+        alias = "camera"
+      ),
+  }
 )
 public class CameraPreview extends Plugin implements CameraActivity.CameraPreviewListener {
     private static String VIDEO_FILE_PATH = "";
@@ -43,7 +47,7 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
     private CameraActivity fragment;
     private int containerViewId = 20;
 
-    @PluginMethod()
+    @PluginMethod
     public void echo(PluginCall call) {
         String value = call.getString("value");
 
@@ -52,16 +56,27 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
         call.success(ret);
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void start(PluginCall call) {
         saveCall(call);
 
         if (hasRequiredPermissions()) {
-            startCamera(call);
+            startCamera(call, "startResult");
         } else {
             pluginRequestPermissions(new String[]{
                     Manifest.permission.CAMERA
             }, REQUEST_CAMERA_PERMISSION);
+        }
+    }
+
+    @ActivityCallback
+    private void startResult(PluginCall call, ActivityResult result) {
+        if (result.getResultCode() == Activity.RESULT_CANCELED) {
+            call.reject("Activity canceled");
+        } else {
+          Intent data = result.getData();
+        // do something with the result data
+        call.resolve("Success!");
         }
     }
 
@@ -75,7 +90,7 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
         }
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void capture(PluginCall call) {
         if(this.hasCamera(call) == false){
             call.error("Camera is not running");
@@ -92,7 +107,7 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
     }
 
 
-    @PluginMethod()
+    @PluginMethod
     public void captureSample(PluginCall call) {
         if(this.hasCamera(call) == false){
             call.error("Camera is not running");
@@ -103,7 +118,7 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
         fragment.takeSnapshot(quality);
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void stop(final PluginCall call) {
         bridge.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -130,7 +145,7 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
         });
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void getSupportedFlashModes(PluginCall call) {
         if(this.hasCamera(call) == false){
             call.error("Camera is not running");
@@ -155,7 +170,7 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
 
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void setFlashMode(PluginCall call) {
         if(this.hasCamera(call) == false){
             call.error("Camera is not running");
@@ -401,7 +416,7 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
         return true;
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void startRecordVideo(final PluginCall call) {
         if(this.hasCamera(call) == false){
             call.error("Camera is not running");
@@ -428,7 +443,7 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
         call.success();
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void stopRecordVideo(PluginCall call) {
        if(this.hasCamera(call) == false){
             call.error("Camera is not running");

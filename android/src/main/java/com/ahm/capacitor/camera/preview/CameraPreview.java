@@ -61,22 +61,11 @@ public class CameraPreview extends Plugin implements CameraActivity.CameraPrevie
         saveCall(call);
 
         if (hasRequiredPermissions()) {
-            startCamera(call, "startResult");
+            startCamera(call);
         } else {
             pluginRequestPermissions(new String[]{
                     Manifest.permission.CAMERA
             }, REQUEST_CAMERA_PERMISSION);
-        }
-    }
-
-    @ActivityCallback
-    private void startResult(PluginCall call, ActivityResult result) {
-        if (result.getResultCode() == Activity.RESULT_CANCELED) {
-            call.reject("Activity canceled");
-        } else {
-          Intent data = result.getData();
-        // do something with the result data
-        call.resolve("Success!");
         }
     }
 
